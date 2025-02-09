@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New Link</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex">
+  <!-- Left Column -->
+  <section class="w-[50%] h-screen flex flex-col">
+    <div class="grid place-items-center h-[50vh] p-10">
+      <form method="POST" action="/" class="grid w-full gap-5">
+        <input class="bg-zinc-100 p-5 w-full rounded" type="url" name="url" required placeholder="Enter URL">
+        <input class="bg-black text-white p-5 px-10 w-full rounded cursor-pointer hover:bg-zinc-800 transition" type="submit" value="Create Link">
+      </form>
+    </div>
+
+    <!-- Top Referrers Section -->
+    <div class="p-10 border-t border-zinc-200 overflow-y-auto">
+      <h2 class="text-lg font-semibold mb-4">Top Referrers</h2>
+      <div class="grid gap-3">
+        {{range .TopReferrers}}
+        <div class="bg-zinc-100 rounded p-4 flex justify-between items-center">
+          <span class="truncate">
+            {{if .Referer}}
+              {{.Referer}}
+            {{else}}
+              (direct)
+            {{end}}
+          </span>
+          <span class="bg-zinc-200 px-2 py-1 rounded text-sm">{{.Count}} clicks</span>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </section>
+
+  <!-- Right Column -->
+  <div class="w-[50%] h-screen overflow-y-scroll p-10 bg-zinc-50">
+    <div class="grid gap-5 grid-cols-2">
+      {{range .ListURL}}
+      <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+        <a href="/{{.ID}}" class="text-blue-500 font-medium hover:text-blue-600">{{.ID}}</a>
+        <div class="mt-2 flex justify-between items-center text-sm">
+          <a href="{{.URL}}" class="text-zinc-500 truncate">{{.URL}}</a>
+          <span class="bg-zinc-100 px-2 py-1 rounded">{{.ClickCount}} clicks</span>
+        </div>
+      </div>
+      {{end}}
+    </div>
+  </div>
+</body>
+</html>
+
